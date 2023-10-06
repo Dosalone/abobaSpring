@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.kubajan.aboba.entity.UserEntity;
 import ru.kubajan.aboba.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -18,9 +21,10 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public String getAllUsers(){
-        userRepository.findAll();
-        return "Hui";
+    public List<UserEntity> getAllUsers(){
+        List<UserEntity> result = new ArrayList<>();
+        userRepository.findAll().forEach(result::add);
+        return result;
     }
 
     @GetMapping("/{id}")
