@@ -8,6 +8,8 @@ import ru.kubajan.aboba.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.kubajan.aboba.model.placeholder.UserEntityPlaceholder.getUserPlaceholder;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -30,6 +32,12 @@ public class UserController {
     @GetMapping("/{id}")
     public UserEntity getUserById(@PathVariable long id){
         return userRepository.findById(id).get();
+    }
+
+    @GetMapping("/add")
+    public void addUser(){
+        UserEntity newUser = getUserPlaceholder();
+        userRepository.save(newUser);
     }
 
 }
