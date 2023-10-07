@@ -8,19 +8,12 @@ import ru.kubajan.aboba.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.kubajan.aboba.model.placeholder.UserEntityPlaceholder.getUserPlaceholder;
-
 @RestController
 @RequestMapping("user")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @GetMapping("/sayHi")
-    public String sayHi(){
-        return "Hi";
-    }
 
     @GetMapping("/all")
     public List<UserEntity> getAllUsers(){
@@ -34,10 +27,14 @@ public class UserController {
         return userRepository.findById(id).get();
     }
 
-    @GetMapping("/add")
-    public void addUser(){
-        UserEntity newUser = getUserPlaceholder();
-        userRepository.save(newUser);
+    @PostMapping(path = "/add", consumes = "application/json")
+    public Long addUser(@RequestBody UserEntity userEntity){
+        UserEntity newUser = new UserEntity(null,
+                                            userEntity.getName(),
+                                            userEntity.getAge(),
+                                            userEntity.getComment(),
+                                            null);
+        return userRepository.save(newUser).getId();
     }
 
 }
