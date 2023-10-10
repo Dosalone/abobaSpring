@@ -3,11 +3,9 @@ package ru.kubajan.aboba.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "organisation")
@@ -15,9 +13,10 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrganisationEntity {
-    @Column(name = "id")
     @Id
-    private long id;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
