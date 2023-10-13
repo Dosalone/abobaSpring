@@ -3,9 +3,7 @@ package ru.kubajan.aboba.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.kubajan.aboba.entity.OrganisationEntity;
-import ru.kubajan.aboba.entity.UserEntity;
 import ru.kubajan.aboba.repository.OrganisationRepository;
-import ru.kubajan.aboba.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
