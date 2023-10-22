@@ -3,9 +3,9 @@ package ru.kubajan.aboba.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "organisation")
@@ -26,4 +26,14 @@ public class OrganisationEntity {
 
     @Column(name = "kpp")
     private int kpp;
+
+    @OneToMany(mappedBy = "organisationEntity")
+    private List<UserEntity> userEntityList;
+
+    public OrganisationEntity(Long id, String name, int inn, int kpp) {
+        this.id = id;
+        this.name = name;
+        this.inn = inn;
+        this.kpp = kpp;
+    }
 }

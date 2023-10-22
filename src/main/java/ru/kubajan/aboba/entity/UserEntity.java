@@ -3,6 +3,7 @@ package ru.kubajan.aboba.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.kubajan.aboba.model.OrganisationModel;
 
 import javax.persistence.*;
 
@@ -26,6 +27,15 @@ public class UserEntity {
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "organisation_id")
-    private Long organisation_id;
+    @ManyToOne
+    @JoinColumn(name = "organisation_id")
+    private OrganisationEntity organisationEntity;
+
+    public UserEntity(Long id, String name, Integer age, String comment){
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.comment = comment;
+    }
+
 }
