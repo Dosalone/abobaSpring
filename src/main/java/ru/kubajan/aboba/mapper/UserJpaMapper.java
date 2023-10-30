@@ -20,12 +20,16 @@ public class UserJpaMapper {
     }
 
     public static UserModel toDomain(UserEntity userEntity){
-        return new UserModel(
+         UserModel userModel = new UserModel(
                 userEntity.getId(),
                 userEntity.getName(),
                 userEntity.getAge(),
-                userEntity.getComment(),
-                OrganisationJpaMapper.toDomain(userEntity.getOrganisationEntity()));
+                userEntity.getComment());
+        if(userEntity.getOrganisationEntity() != null){
+            userModel.setOrganisationModel(OrganisationJpaMapper.toDomain(userEntity.getOrganisationEntity()));
+        }
+        return userModel;
+
     }
 
     public static List<UserModel> toDomain(List<UserEntity> userEntityList){
