@@ -2,39 +2,30 @@ package ru.kubajan.aboba.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.kubajan.aboba.entity.OrganisationEntity;
-import ru.kubajan.aboba.entity.UserEntity;
-import ru.kubajan.aboba.repository.OrganisationRepository;
-import ru.kubajan.aboba.repository.UserRepository;
-
-import java.util.ArrayList;
+import ru.kubajan.aboba.model.OrganisationModel;
+import ru.kubajan.aboba.service.OrganisationService;
 import java.util.List;
 
+//слой контроллера
 @RestController
 @RequestMapping("organisation")
 public class OrganisationController {
 
     @Autowired
-    private OrganisationRepository organisationRepository;
+    private OrganisationService organisationService;
 
     @GetMapping("/all")
-    public List<OrganisationEntity> getAllOrganisations(){
-        List<OrganisationEntity> result = new ArrayList<>();
-        organisationRepository.findAll().forEach(result::add);
-        return result;
+    public List<OrganisationModel> getAllOrganisations(){
+        return organisationService.getAllOrganisations();
     }
 
-    @GetMapping("/{id}")
-    public OrganisationEntity getUserById(@PathVariable long id){
-        return organisationRepository.findById(id).get();
+    @GetMapping(value = "/{id}")
+    public OrganisationModel getOrganisationById(@PathVariable long id){
+        return organisationService.getOrganisationById(id);
     }
 
     @PostMapping(path = "/add", consumes = "application/json")
-    public Long addOrganisation(@RequestBody OrganisationEntity organisationEntity){
-        OrganisationEntity newOrganisation = new OrganisationEntity(null,
-                organisationEntity.getName(),
-                organisationEntity.getInn(),
-                organisationEntity.getKpp());
-        return organisationRepository.save(newOrganisation).getId();
+    public Long addOrganisation(@RequestBody OrganisationModel organisationModel){
+        return organisationService.addOrganisation(organisationModel);
     }
 }
